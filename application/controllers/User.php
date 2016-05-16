@@ -17,8 +17,6 @@ class User extends CI_Controller {
 	public function __construct() {
 		
 		parent::__construct();
-		$this->load->library(array('session'));
-		$this->load->helper(array('url'));
 		
 	}
 	
@@ -37,9 +35,6 @@ class User extends CI_Controller {
 	 */
 	public function register() {
 		
-		// create the data object
-		$data = new stdClass();
-		
 		// load form helper and validation library
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -54,7 +49,7 @@ class User extends CI_Controller {
 			
 			// validation not ok, send validation errors to the view
 			
-			
+			$this->alert->set('Form Validation Error','error');
 		} else {
 			
 			// set variables from the form
@@ -64,21 +59,19 @@ class User extends CI_Controller {
 			
 			if ($this->users->create_user($username, $email, $password)) {
 				
-				
-				
+				$this->alert->set('Your account has been created.','success');
+				redirect('/');
 			} else {
 				
-				// user creation failed, this should never happen
-				$data->error = 'There was a problem creating your new account. Please try again.';
-				
-				
+				// user creation failed, this should never happen				
+				$this->alert->set('There was a problem creating your new account. Please try again.','error');
 				
 			}
 			
 		}
 		
 		$this->load->view(THEME.'/header');
-		$this->load->view(THEME.'/user/register/register', $data);
+		$this->load->view(THEME.'/user/register');
 		$this->load->view(THEME.'/footer');
 		
 	}
@@ -129,14 +122,14 @@ class User extends CI_Controller {
 				
 			} else {
 				// login failed
-				$this->alert->set('Wrong username or password.!','error');	
+				$this->alert->set('Wrong username or password.','error');
 			}
 			
 		}
 		
 		// send error to the view
 		$this->load->view(THEME.'/header');
-		$this->load->view(THEME.'/user/login/login', $data);
+		$this->load->view(THEME.'/user/login', $data);
 		$this->load->view(THEME.'/footer');
 		
 	}
@@ -152,20 +145,16 @@ class User extends CI_Controller {
 		// create the data object
 		$data = new stdClass();
 		
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if ($this->session->userdata('id') > 0 ) {
 			
 			// remove session datas
-			foreach ($_SESSION as $key => $value) {
-				unset($_SESSION[$key]);
-			}
-			
+			$this->session->sess_destroy();
+			$this->alert->set('Logout Successful','success');
 			// user logout ok
-			$this->load->view('header');
-			$this->load->view('user/logout/logout_success', $data);
-			$this->load->view('footer');
+			redirect('/user/login');
 			
 		} else {
-			
+			echo "test"; die;
 			// there user was not logged in, we cannot logged him out,
 			// redirect him to site root
 			redirect('/');

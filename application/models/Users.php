@@ -24,8 +24,9 @@ class Users extends CI_Model {
 	// get user id from session
 	public function id()
 	{
-		if ($this->session->userdata('id') != ''){
-			return $this->session->userdata('id');
+		$id = $this->session->userdata('id'); 
+		if (isset($id) && $id != ''){
+			return $id;
 		}
 		else{
 			return '';
@@ -52,7 +53,19 @@ class Users extends CI_Model {
 			'level'		 => 1,
 		);
 		
-		return $this->db->insert('users', $data);
+		$this->db->insert('users', $data); 
+		$id = $this->db->insert_id();
+		
+		$user = $this->get_user($id);
+		
+		
+		$this->session->set_userdata('id',(int)$user->id);
+		$this->session->set_userdata('username',(string)$user->username);
+		$this->session->set_userdata('is_confirmed',(bool)$user->is_confirmed);
+		$this->session->set_userdata('email',$user->email);
+		$this->session->set_userdata('level',$user->level);
+		
+		return TRUE;
 		
 	}
 	
@@ -103,7 +116,9 @@ class Users extends CI_Model {
 		
 		$this->db->from('users');
 		$this->db->where('id', $user_id);
-		return $this->db->get()->row();
+		$user = $this->db->get()->row(); 
+		unset($user->password); 
+		return $user;
 		
 	}
 	

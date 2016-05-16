@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php $user = $this->users->get_user($this->users->id()); ?>
-	<?php 
-	echo "<pre>";
-	print_r($user);
-	echo "</pre>";
-	?>
+
 	<head>
 		<meta charset="utf-8">
 		<title>Thing</title>
