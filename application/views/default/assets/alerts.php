@@ -45,7 +45,7 @@ if(isset($toast['ttype'])){ ?>
 
 <?php } 
 	
-	$array_items = array('tmessage' => '', 'ttype' => '', 'tlocation' => '','type' => '','location' => '');
+	$array_items = array('tmessage', 'ttype', 'tlocation','type' ,'location' );
 
 	$this->session->unset_userdata($array_items);
 	

@@ -84,6 +84,9 @@ class User extends CI_Controller {
 	 */
 	public function login() {
 		
+		
+		$this->session->set_userdata('admin',array('awesome','cool'));
+		
 		// create the data object
 		$data = new stdClass();
 		
@@ -111,12 +114,24 @@ class User extends CI_Controller {
 				$user    = $this->users->get_user($user_id);
 				
 				// set session user datas
+				
+				$sesdata = array(
+					'id'		=> (int)$user->id,
+					'username'	=> (string)$user->username,
+					'email'		=> $user->email,
+					'level'		=> $user->level,
+					'admin'		=> $user->level,
+				); 
+				
+				if($user->level == 2){
+					$this->session->set_userdata('admin',$sesdata);
+				}else{
+					$this->session->set_userdata('user',$sesdata);
+				}
 						
-				$this->session->set_userdata('id',(int)$user->id);
-				$this->session->set_userdata('username',(string)$user->username);
-				$this->session->set_userdata('is_confirmed',(bool)$user->is_confirmed);
-				$this->session->set_userdata('email',$user->email);
-				$this->session->set_userdata('level',$user->level);
+				
+				
+
 				
 				$this->alert->set('Welcome!','success');
 				
@@ -154,7 +169,6 @@ class User extends CI_Controller {
 			redirect('/user/login');
 			
 		} else {
-			echo "test"; die;
 			// there user was not logged in, we cannot logged him out,
 			// redirect him to site root
 			redirect('/');

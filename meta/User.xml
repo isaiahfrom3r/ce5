@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xml>
+  <pages>
+    <controller>login</controller>
+    <seo>Website Login Page</seo>
+    <name>Login</name>
+    <description>The page you login to on the website</description>
+  </pages>
+  <pages>
+    <controller>register</controller>
+    <seo>his is the seo Keywords</seo>
+    <name>Page Name</name>
+    <description>This is the page description</description>
+  </pages>
+</xml>

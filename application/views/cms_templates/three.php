@@ -1,0 +1,1 @@
+<div class="row"><div class="col-md-4">Left Text <br>&nbsp; &nbsp;</div><div class="col-md-4">Middle Text <br> &nbsp; &nbsp;</div><div class="col-md-4">Right Text <br> &nbsp; &nbsp;</div></div><div class="row"><div class="col-md-12">Bottom Text <br> &nbsp; &nbsp;</div></div>

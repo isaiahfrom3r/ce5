@@ -151,7 +151,8 @@ class Users extends CI_Model {
 	
 	public function is_loggedin()
 	{
-		if (strlen($this->session->userdata('email')) == 0) {
+		
+		if (strlen($this->session->user['email']) == 0) {
 			return FALSE;
 		}
 		else {
@@ -159,8 +160,9 @@ class Users extends CI_Model {
 		}
 	}
 	
-	public function is_admin_or_moderator() {
-		if ($this->session->userdata('level') !== '0' && $this->session->userdata('level') !== '2') {
+	public function is_admin() {
+
+		if ($this->session->admin['email'] && $this->session->admin['level'] !== '2') {
 			return FALSE;
 		}
 		else {

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xml>
+  <pages>
+    <controller>index</controller>
+    <seo>seo</seo>
+    <name>CMS</name>
+    <description>description</description>
+  </pages>
+  <pages>
+    <controller>create_page</controller>
+    <seo>seo</seo>
+    <name>name</name>
+    <description>description</description>
+  </pages>
+  <pages>
+    <controller>edit_page</controller>
+    <seo>seo</seo>
+    <name>name</name>
+    <description>description</description>
+  </pages>
+  <pages>
+    <controller>edit_content</controller>
+    <seo>seo</seo>
+    <name>name</name>
+    <description>description</description>
+  </pages>
+</xml>
